@@ -27,38 +27,39 @@ const adminLogin = async (req, res) => {
 //employeee
 const addEmployee = async (req, res) => {
     //variable to store profile input
-    const profile = ""
+    const profile = req.file.filename
+    console.log(profile);
     //destructure input data
-    const [fname, lname, status, mobile, location, gender, email] = req.body
+    const { fname, lname, status, mobile, location, gender, email } = req.body
     //check if all fields are empty or not
-    if (!fname || !lname || !status || !mobile || !location || !gender || !email) {
+    if (!fname || !lname || !status || !mobile || !location || !gender || !email || !profile) {
         res.status(400).json("all fields are required")
-    } 
+    }
     else {
         //to resolve runtimee errors use try & catch block
-        try {
-            //check employee already present or not
-            let preEmployee = await employees.findOne({ email })
-            if (preEmployee) {
-                res.status(400).json("employee already exist")
-            }
-            else {
-                //create new employee in collection
-                let newEmployee = new employees({
-                    fname, lname, status, mobile, location, gender, email
-                })
-                //save new employee
-                await newEmployee.save()
-                res.status(200).json(fname)
-    
-            }
+        //try {
+        // check employee already present or not
+        let preEmployee = await employees.findOne({ email })
+        if (preEmployee) {
+            res.status(400).json("employee already exist")
         }
-       
-    
-    catch {
+        else {
+            //create new employee in collection
+            let newEmployee = new employees({
+                fname, lname, status, mobile, location, gender, email, profile
+            })
+            //save new employee
+            await newEmployee.save()
+            res.status(200).json(fname)
+
+        }
+        // }
+
+
+        //catch {
         res.status(400).json("connection error")
+        //}
     }
-}
 }
 
 

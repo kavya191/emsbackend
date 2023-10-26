@@ -49,3 +49,5 @@ const employeeSchema=new mongoose.Schema({
     }
 
 })
+const admins=mongoose.model('employees',employeeSchema)
+module.exports=admins
