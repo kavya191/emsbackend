@@ -37,7 +37,7 @@ const addEmployee = async (req, res) => {
     }
     else {
         //to resolve runtimee errors use try & catch block
-        //try {
+        try {
         // check employee already present or not
         let preEmployee = await employees.findOne({ email })
         if (preEmployee) {
@@ -53,12 +53,12 @@ const addEmployee = async (req, res) => {
             res.status(200).json(fname)
 
         }
-        // }
+        }
 
 
-        //catch {
+        catch {
         res.status(400).json("connection error")
-        //}
+        }
     }
 }
 
