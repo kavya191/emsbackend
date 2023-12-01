@@ -11,6 +11,9 @@ server.use(cors())
 server.use(express.json())
 server.use(router)
 require('./connections/connection')
+//export uploads folder to client
+//         'pathname'  method        'sending folder'
+server.use('/uploads',express.static('./uploads'))
 
 const port=4000 || process.env.port
 server.listen(port,()=>{
